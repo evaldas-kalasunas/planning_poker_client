@@ -1,0 +1,67 @@
+.primary-btn-default {
+    caret-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 12rem;
+    height: 2.5rem;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-align: center;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    border-radius: 10px;
+    background-color: var(--main-blue);
+    vertical-align: bottom;
+}
+
+.primary-btn-default:hover {
+    cursor: pointer;
+    background-color: var(--accent-green);
+    color: #000000;
+}
+
+/* Should override set styles if disabeld */
+.btn-disabled {
+    background-color: #4f4f4f !important;
+    color:#000000 !important;
+}
+.btn-disabled:hover {
+    cursor: not-allowed !important;
+}
+
+.primary-btn-small {
+    caret-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: 2.5rem;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-align: center;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    border-radius: 10px;
+    background-color: var(--main-blue);
+    vertical-align: bottom;
+}
+
+.primary-btn-small:hover {
+    cursor: pointer;
+    background-color: var(--accent-green);
+    color: #000000;
+}
+
+
+/* if prop specified overrides width! */
+.btn-width-small {
+    width: 6rem;
+}
+

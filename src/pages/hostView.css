@@ -1,0 +1,95 @@
+.host-view-story {
+    height: 100vh;
+    flex: 1;
+    /* Inner story item */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    font-size: 2rem;
+}
+
+.host-view-cards-row-1, .host-view-cards-row-2 {
+    display: flex;
+    flex-direction: row;
+    column-gap: 2rem;
+}
+
+.host-view-card-base {
+    caret-color: transparent;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 6rem;
+    background-color: #9D9D9D;
+    color: #000000;
+    border-radius: 10px;
+}
+
+.host-view-card-base:hover {
+    cursor: pointer;
+    background-color: var(--accent-green);
+    color: #ffffff;
+}
+
+.selected-card {
+    background-color: var(--accent-green);
+    color: #ffffff;
+}
+
+.host-view-half {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.host-view-half-one {
+    margin-right: 1.5rem;
+    margin-bottom: 0.2rem;
+}
+.host-view-half-two {
+    margin-left: 1.5rem;
+    margin-top: 0.2rem;
+}
+
+.host-view-buttons {
+    display: flex;
+    flex-direction: row;
+    column-gap: 20px;;
+}
+
+.host-view-countdown {
+    /* Same as Button style */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: 1.1rem;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-align: center;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    border-radius: 10px;
+    background-color: var(--main-blue);
+    vertical-align: bottom;
+}
+
+.host-view-selected-points {
+    background: var(--main-blue);
+    color: #ffffff;
+}
+
+@media screen and (max-width: 700px) {
+    .host-view-cards-row-1, .host-view-cards-row-2 {
+        flex-wrap: wrap;
+        row-gap: 2rem;
+    }
+}

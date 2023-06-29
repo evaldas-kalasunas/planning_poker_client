@@ -1,0 +1,23 @@
+.page-layout-columns {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-layout-rows {
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width: 700px) {
+    .page-layout-rows {
+        width: 100%;
+        flex-direction: column;
+        /* flex-wrap: nowrap; */
+    }
+}
