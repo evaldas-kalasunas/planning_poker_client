@@ -85,7 +85,6 @@ export default function HostView() {
 
   return (
     <Page title="Host View" buttonPage={false}>
-      {console.log(appState.hideVotes)}
       {/* key here required to later only fire use effect when one particular changes */}
         <Sidebar size="wide" isMain={true} key='host-sidebar'/>
         <div className='host-view-story'> 
