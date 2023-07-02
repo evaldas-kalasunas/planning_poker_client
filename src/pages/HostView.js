@@ -59,14 +59,20 @@ export default function HostView() {
   }
 
   const handleStopVoting = () => {
-    socket.emit("set-stop-voting", appState.roomId);
+    socket.emit("set-stop-voting", {
+      roomId: appState.roomId,
+      startVoting: false,
+      hideShowVotes: appState.hideVotes,
+      votedStory: appState.selectedVoteStory
+    });
   }
 
   useEffect(() => {
-    socket.on("stop-voting", (roomId) => {
+    socket.on("stop-voting", (data) => {
       appDispatch({type: TYPES.STOP_VOTING, value: {
-        startVoting: false,
-        hideShowVotes: appState.hideVotes
+        startVoting: data.startVoting,
+        hideShowVotes: data.hideShowVotes,
+        votedStory: data.votedStory
       }});
     })
   }, []);

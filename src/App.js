@@ -12,6 +12,7 @@ import mainReducer from './mainReducer';
 import { useImmerReducer } from 'use-immer';
 import Modal from './components/Modal';
 import { socket } from './services/socket.service';
+import { NotFound } from './pages/NotFound';
 
 const App = () => {
   const initialState = {
@@ -51,7 +52,7 @@ const App = () => {
       console.log(data)
     })
   }, [socket]);
-
+  
   return (
     <StateContext.Provider value={state}>
       <DispatchContext.Provider value={dispatch}>
@@ -66,7 +67,8 @@ const App = () => {
               <Route path={`/mainView/:roomId`} element={<HostView/>}/>
               <Route path={`/mainView/:roomId/:userName`} element={<HostView/>}/>
               <Route path={`/mainView/:roomId/:userName/:vote`} element={<HostView/>}/>
-              <Route path={`/mainView/:roomId/:userName/:hide`} element={<HostView/>}/>   
+              <Route path={`/mainView/:roomId/:userName/:hide`} element={<HostView/>}/>
+              <Route path={`*`} element={<NotFound/>}/>   
             </Routes>
           </BrowserRouter>
       </DispatchContext.Provider>

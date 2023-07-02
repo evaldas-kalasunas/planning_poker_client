@@ -22,7 +22,7 @@ function mainReducer(draft, action) {
             draft.showCards = false
             break
         }
-        // Timer controls
+        // TODO: for future features Timer controls
         // case TYPES.INCREASE_TIMER_MINUTES: {
         //     draft.timerMinutes++
         //     break
@@ -40,16 +40,15 @@ function mainReducer(draft, action) {
         //     break
         // }
 
-        case TYPES.SET_SHOW_MODAL: {
-            draft.showModal = action.value
-            break
-        }
+        // TODO: for future features
+        // case TYPES.SET_SHOW_MODAL: {
+        //     draft.showModal = action.value
+        //     break
+        // }
 
         case TYPES.ADD_PLAYER: {
             const player = action.value
             draft.currentPlayer = player;
-            // const hostPlayer = 
-            console.log('player: ', player)
             if (player.isHost) {
                 draft.roomId = player.roomId
                 draft.name = player.name
@@ -62,15 +61,14 @@ function mainReducer(draft, action) {
                 }
             }
             
-            // // TODO: fix for new doesn't show old 
-                if (!draft.players.length) {
+            if (!draft.players.length) {
+                draft.players.push(player)
+            } else {
+                const playerMap = draft.players.map(player => player.id)
+                if (!playerMap.includes(player.id)) {
                     draft.players.push(player)
-                } else {
-                    const playerMap = draft.players.map(player => player.id)
-                    if (!playerMap.includes(player.id)) {
-                        draft.players.push(player)
-                    }
                 }
+            }
             break;
         }
 
@@ -84,7 +82,6 @@ function mainReducer(draft, action) {
         }
 
         case TYPES.START_VOTING: {
-            console.log(action)
             const storyToVote = action.value
             // draft.roomId = draft.roomId === "" ? action.value.room : draft.room
             draft.selectedViewStory = ''
@@ -102,30 +99,21 @@ function mainReducer(draft, action) {
             // draft.timerSeconds = storyToVote.timerSeconds || draft.timerSeconds
             break;
         }
+        // To stop voting
         case TYPES.STOP_VOTING: {
             draft.startVoting = action.value.startVoting;
-            draft.hideVotes = !action.value.hideShowVotes;
-        }
-        case TYPES.RESET_VOTING: {
-            draft.startVoting = action.value.startVoting
-            draft.currentPlayer.vote = 0;
-            draft.selectedVoteStory.points = 0;
-            // todo: repeated twice
-            draft.players.forEach((player) => {
-                if(player.id === draft.currentPlayer.id) {
-                    player.vote = 0;
-                }
-            })
-
-            const { story } = action.value
-            const newStory = Object.assign({}, story);
+            if (!draft.votedStories.includes(action.value.votedStory.id)) {
+                draft.votedStories.push(action.value.votedStory.id)
+            }
 
             // pick the most frequent number
-            const votes = draft.players.map(player => player.vote.toString());
+            const votes = draft.players.map(player => {
+                console.log(JSON.stringify(player))
+                return player.vote ?? player.vote.toString()});
             const counts = {};
             let compare = 0;
             let mostFrequent;
-
+  
             // finds most frequen vote
             for (let i = 0; i < votes.length; i++) {
                 const vote = votes[i];
@@ -134,21 +122,42 @@ function mainReducer(draft, action) {
                 }  else {
                     counts[vote] = counts[vote] + 1;
                 }
-
+  
                 if (counts[vote] > compare) {
                     compare = counts[vote];
                     mostFrequent = votes[i];
                 }
             }
-            
+              
+            const resultsStory = {
+                ...action.value.votedStory
+            };
+            resultsStory.points = mostFrequent
 
-            newStory.points = mostFrequent
+            const foundInResults = draft.resultsData.find(story => story.id === resultsStory.id);
 
-            if (!draft.votedStories.includes(newStory.id)) {
-
-                draft.votedStories.push(newStory.id)
-                draft.resultsData.push(newStory)
+            if (!foundInResults) {
+                draft.resultsData.push(resultsStory)
             }
+            break;
+        }
+        // To reset all process of story to start
+        case TYPES.RESET_VOTING: {
+            console.log("should not happen on stop")
+            draft.showCards = false;
+            draft.startVoting = action.value.startVoting
+            draft.currentPlayer.vote = null;
+            draft.selectedVoteStory.points = null;
+            draft.selectedVoteStory = {
+                text: '',
+                points: undefined,
+              };
+
+            draft.players.forEach((player) => {
+                if(player.id === draft.currentPlayer.id) {
+                    player.vote = null;
+                }
+            })
             break;
         }
 

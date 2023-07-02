@@ -30,6 +30,7 @@ export default function Modal(props) {
             </div>
             <div>
                 Content
+                {/* TODO: for reusability this should be passed as props */}
                 <ul>
                 {appState.resultsData.map(resultStory => <li key={resultStory.id}>{resultStory.text} | {resultStory.points}</li>)}
                 </ul>

@@ -15,6 +15,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 import { socket } from '../services/socket.service';
 import { useNavigate, useParams } from 'react-router-dom'
+import { Popup } from './Popup';
 
 
 export default function Sidebar(props) {
@@ -79,15 +80,12 @@ export default function Sidebar(props) {
             room: appState.roomId || roomId}
         socket.emit('start-voting', data);
     }
-    
-  const handleShowResults = () => {
-      // TODO:
-      // appDispatch({type: TYPES.SET_SHOW_MODAL, value: true})
-      // appDispatch({type: TYPES.ADD_VOTES})
-  }
+  // TODO: for future features
+//   const handleShowResults = () => {
+//     appDispatch({type: TYPES.SET_SHOW_MODAL, value: true})
+//   }
 
   const handleCopyURL = () => {
-      console.log(GUEST_VIEW_LINK)
       navigator.clipboard.writeText(GUEST_VIEW_LINK)
   }
 
@@ -123,15 +121,21 @@ export default function Sidebar(props) {
             {appState.host.isHost && <div className='sidebar-voted'>
                 <span className='sidebar-voted-numbers'>{appState.votedStories.length}/{appState.stories.length} </span> Evaluated!
             </div>}
-            {appState.host.isHost && <div className='sidebar-results'>
+            {/* TODO: For future features */}
+            {/* {appState.host.isHost && <div className='sidebar-results'>
                 <Button text="Results" disabled={appState.startVoting} clicked={handleShowResults}/>
-            </div>}
+            </div>} */}
             {appState.host.isHost && <div className='sidebar-sharable-link'>
                 Invite people: 
                     <span className='sidebar-link'>
                         {GUEST_VIEW_LINK}
                     </span> 
-                    <i className='fa fa-clone fa-md sidebar-copy-icon' onClick={handleCopyURL}></i>
+                    <Popup content={
+                        <i className='fa fa-clone fa-md sidebar-copy-icon' onClick={handleCopyURL}></i>
+                    }
+                    tooltipText={"Link copied!"}
+                    />
+                    
             </div>}
             {/* {appState.host.isHost && <div className='sidebar-timer'>
                 Set timer: <span className='sidebar-timer-settings'><Timer readOnly={false}/></span>
