@@ -118,6 +118,7 @@ function mainReducer(draft, action) {
             draft.startVoting = action.value.startVoting
             draft.currentPlayer.vote = null;
             draft.selectedVoteStory.points = null;
+            draft.votedStories = draft.votedStories.filter(story => story.id === draft.selectedVoteStory.id)
             draft.selectedVoteStory = {
                 text: '',
                 points: undefined,
@@ -128,6 +129,9 @@ function mainReducer(draft, action) {
                     player.vote = null;
                 }
             })
+
+           
+
             break;
         }
 
