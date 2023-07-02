@@ -11,14 +11,12 @@ export default function Home() {
   
   return (
     <Page title="Create Room" buttonPage={true}>
-      <form>
          <Link to="/joinRoom">
-            <Button text="Join Room" si/>
+            <Button text="Join Room"/>
          </Link> 
          <Link to="/createRoom">
-            <Button text="Create Room" />
+            <Button text="Create Room" className="create-room"/>
          </Link>
-      </form>
     </Page>
   )
 }

@@ -125,13 +125,14 @@ export default function Sidebar(props) {
                     
             </div>}
         </div>
-      : <div  className='sidebar-players'> 
+      : <div  className='sidebar-players-outer'> 
             {appState.players.map(player => (
-             <div key={player.id}>
+             <div key={player.id} className="sidebar-players">
+                {console.log(player.vote)}
                 {/* TODO: this should pick from players to have individual votes */}
-                 {(!player.vote) ? <span className={appState.hideVotes ? 'sidebar-hide-votes' : 'sidebar-not-voted'}>X</span> : 
-                        <span className={appState.hideVotes ? 'sidebar-hide-votes' : 'sidebar-player-votes'}>{player.vote}</span>}
-                  <span className='sidebar-player'>{player.name}</span> 
+                 {(!player.vote) ? <div className={appState.hideVotes ? 'sidebar-hide-votes' : 'sidebar-not-voted'}>X</div> : 
+                        <div className={appState.hideVotes ? 'sidebar-hide-votes' : 'sidebar-player-votes'}>{appState.hideVotes && player.vote === '\u2615' ? null : player.vote}</div>}
+                  <div className='sidebar-player'>{player.name}</div> 
         </div>))} </div>}
     </div>
   )

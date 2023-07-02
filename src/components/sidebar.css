@@ -112,12 +112,16 @@
     margin-left: 10px;
 }
 
-.sidebar-players {
+.sidebar-players-outer {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 20px;
     margin-left: auto;
+}
+
+.sidebar-players {
+    display: flex;
 }
 
 .sidebar-player {
@@ -136,9 +140,10 @@
 
 .sidebar-hide-votes {
     background-color: #000000;
+    z-index: 999;
     color: #000000;
     width: 30px;
-    height: 30px;
+    height: 20px;
 }
 
 @media screen and (max-width: 768px) {
