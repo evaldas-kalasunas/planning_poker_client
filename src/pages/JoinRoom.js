@@ -17,11 +17,8 @@ import DispatchContext from '../contexts/DispatchContext';
 import { v4 as uuidv4 } from 'uuid'
 
 export default function JoinRoom(props) {
-  const appState = useContext(StateContext)
-  const appDispatch = useContext(DispatchContext)
   const [ name, setName ] = useCustomInputHook('')
   const { roomId } = useParams()
-  // const {urlroomId} = props; 
   const uniquePlayerId = uuidv4() 
   
   const handleClick = () => {
@@ -29,7 +26,6 @@ export default function JoinRoom(props) {
     socket.emit('join-room', { roomId, player })
   }
 
-  // TODO: Extract ID from URL or take directly
   return (
     <Page title="Join Room" buttonPage={true}>
       <form>

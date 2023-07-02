@@ -1,8 +1,6 @@
 import * as TYPES from './types'
-import { socket } from './services/socket.service';
 
 // TODO: unify & use either votes or points everywhere!!!!!!!!!!!!!!!!!!!!!
-// TODO: points/votes should be initialized to null as 0 is valid vote.
 function mainReducer(draft, action) {
     
     switch(action.type) {
@@ -22,29 +20,6 @@ function mainReducer(draft, action) {
             draft.showCards = false
             break
         }
-        // TODO: for future features Timer controls
-        // case TYPES.INCREASE_TIMER_MINUTES: {
-        //     draft.timerMinutes++
-        //     break
-        // }
-        // case TYPES.DECREASE_TIMER_MINUTES: {
-        //     draft.timerMinutes--
-        //     break
-        // }
-        // case TYPES.INCREASE_TIMER_SECONDS: {
-        //     draft.timerSeconds++
-        //     break
-        // }
-        // case TYPES.DECREASE_TIMER_SECONDS: {
-        //     draft.timerSeconds--
-        //     break
-        // }
-
-        // TODO: for future features
-        // case TYPES.SET_SHOW_MODAL: {
-        //     draft.showModal = action.value
-        //     break
-        // }
 
         case TYPES.ADD_PLAYER: {
             const player = action.value
@@ -83,7 +58,6 @@ function mainReducer(draft, action) {
 
         case TYPES.START_VOTING: {
             const storyToVote = action.value
-            // draft.roomId = draft.roomId === "" ? action.value.room : draft.room
             draft.selectedViewStory = ''
             draft.showCards = storyToVote.showCards
             draft.selectedVoteStory = storyToVote.story
@@ -93,10 +67,6 @@ function mainReducer(draft, action) {
             draft.players.forEach(player => {
                 player.vote = 0;
             });
-
-            // When voting not started take from initial state, otherwise from story
-            // draft.timerMinutes = storyToVote.timerMinutes || draft.timerMinutes
-            // draft.timerSeconds = storyToVote.timerSeconds || draft.timerSeconds
             break;
         }
         // To stop voting

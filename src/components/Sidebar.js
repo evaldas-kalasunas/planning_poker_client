@@ -9,19 +9,17 @@ import './sidebar.css'
 import useCustomInputHook from './../hooks/inputHook';
 
 import * as TYPES from '../types';
-import Timer from './Timer';
 
 import { v4 as uuidv4 } from 'uuid'
 
 import { socket } from '../services/socket.service';
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { Popup } from './Popup';
 
 
 export default function Sidebar(props) {
     const appState = useContext(StateContext)
     const appDispatch = useContext(DispatchContext)
-    const navigate = useNavigate();
     const { roomId } = useParams()
 
     const [storyText, setStoryText, resetStoryText] = useCustomInputHook('');
@@ -29,16 +27,13 @@ export default function Sidebar(props) {
     const GUEST_VIEW_LINK = `${window.location.origin}/joinRoom/${appState.roomId}`;
 
     useEffect(() => {
-        console.log(appState)
         socket.on('update-players', (data) => {
-            console.log('updated_players: ', data)
             appDispatch({ type: TYPES.UPDATE_PLAYERS, value: {players: data.players, player: data.player}})
         })
     }, [])
 
     useEffect(() => {
         socket.on("add-story", (data) => {
-            console.log(data)
             appDispatch({type: TYPES.ADD_STORY, value: data})
         })
     }, [socket])
@@ -80,10 +75,6 @@ export default function Sidebar(props) {
             room: appState.roomId || roomId}
         socket.emit('start-voting', data);
     }
-  // TODO: for future features
-//   const handleShowResults = () => {
-//     appDispatch({type: TYPES.SET_SHOW_MODAL, value: true})
-//   }
 
   const handleCopyURL = () => {
       navigator.clipboard.writeText(GUEST_VIEW_LINK)
@@ -121,10 +112,6 @@ export default function Sidebar(props) {
             {appState.host.isHost && <div className='sidebar-voted'>
                 <span className='sidebar-voted-numbers'>{appState.votedStories.length}/{appState.stories.length} </span> Evaluated!
             </div>}
-            {/* TODO: For future features */}
-            {/* {appState.host.isHost && <div className='sidebar-results'>
-                <Button text="Results" disabled={appState.startVoting} clicked={handleShowResults}/>
-            </div>} */}
             {appState.host.isHost && <div className='sidebar-sharable-link'>
                 Invite people: 
                     <span className='sidebar-link'>
@@ -137,9 +124,6 @@ export default function Sidebar(props) {
                     />
                     
             </div>}
-            {/* {appState.host.isHost && <div className='sidebar-timer'>
-                Set timer: <span className='sidebar-timer-settings'><Timer readOnly={false}/></span>
-            </div>} */}
         </div>
       : <div  className='sidebar-players'> 
             {appState.players.map(player => (

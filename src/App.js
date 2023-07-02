@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route} from 'react-router-dom'
 import StateContext from './contexts/StateContext';
 import DispatchContext from './contexts/DispatchContext';
@@ -10,8 +9,6 @@ import HostView from './pages/HostView';
 
 import mainReducer from './mainReducer';
 import { useImmerReducer } from 'use-immer';
-import Modal from './components/Modal';
-import { socket } from './services/socket.service';
 import { NotFound } from './pages/NotFound';
 
 const App = () => {
@@ -36,27 +33,14 @@ const App = () => {
     stories: [],
     resultsData: [],
     showModal: false,
-    showCards: false,
-    timerMinutes: 0,
-    timerSeconds: 15,
+    showCards: false
   }
 
   const [state, dispatch] = useImmerReducer(mainReducer, initialState)
-
-  useEffect(() => {
-    console.log(socket.connected)
-  }, [socket]);
-
-  useEffect(() => {
-    socket.on("player-left", (data) => {
-      console.log(data)
-    })
-  }, [socket]);
   
   return (
     <StateContext.Provider value={state}>
       <DispatchContext.Provider value={dispatch}>
-        <Modal/>
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Home/>}/>

@@ -12,14 +12,12 @@ import { v4 as uuidv4 } from 'uuid'
 
 import * as TYPES from '../types'
 import DispatchContext from '../contexts/DispatchContext'
-import StateContext from '../contexts/StateContext';
 
 
 import { socket } from '../services/socket.service'
 
 export default function CreateRoom() {
   const [hostName, setHostName] = useCustomInputHook('');
-  const [roomId, setRoomId] = useState("");
 
   const appDispatch = useContext(DispatchContext)
   const navigate = useNavigate();
@@ -30,7 +28,6 @@ export default function CreateRoom() {
     const uniquePlayerId = uuidv4() // used also for key in map
     const hostData = {name: hostName, isHost: true, id: uniquePlayerId, vote: 0, socketId: '', roomId: uniqueRoomId, isActive: true}
 
-    console.log('hostData: ', hostData)
     socket.emit('create-room', { roomId: uniqueRoomId, host: hostData })
 
     appDispatch({ type: TYPES.ADD_PLAYER, value: hostData})

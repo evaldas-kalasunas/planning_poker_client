@@ -4,9 +4,7 @@ import { useState } from 'react';
 export const Popup = (props) => {
     const [visible, setIsVisible] = useState(false)
     const showPopup = () => {
-        console.log(visible)
         setIsVisible((curr) => !curr)
-        console.log(visible)
         const popup = document.getElementById('main-popup');
         popup.classList.toggle('show');
     }

@@ -17,8 +17,6 @@ import { socket } from '../services/socket.service';
 export default function HostView() {
   const appState = useContext(StateContext)
   const appDispatch = useContext(DispatchContext)
-  // let [minutes, setMinutes] = useState(appState.timerMinutes)
-  // let [seconds, setSeconds] = useState(appState.timerSeconds)
   const [error, setError] = useState('')
   const { roomId, userName, vote } = useParams();
   const [ selectedPoints, setSelectedPoints ]  = useState('');
@@ -52,9 +50,7 @@ export default function HostView() {
     setClearSelectedClass(true);
     appDispatch({type: TYPES.RESET_VOTING, value: {
       startVoting: false,
-      story: appState.selectedVoteStory,
-      // timerSeconds: appState.timerSeconds,
-      // timerMinutes: appState.timerMinutes
+      story: appState.selectedVoteStory
     }})
   }
 
